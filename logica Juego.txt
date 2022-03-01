@@ -1,0 +1,94 @@
+// menu principal
+1 jugar
+	menu para elegir mapa
+		escoge mapa y entra al juego
+	regresar al menu principal
+
+2 crear mapa
+	ponerle nombre al mapa
+	
+3 reportes
+	mostrar cantidad oro recogido
+	movimientos realizados para salir y cantidad en que perdio
+	# movimientos del bot si lo atrapa
+	# veces que el bot lo vio
+
+4 salir
+
+
+
+// juego
+
+// en el tablero
+1 recolectar oro para salir
+2 casilla salida
+	si se tiene el oro suficente sale.
+	sino mostrar seguir con el juego o terminar juego
+	
+	// Lo que debe tener el mapa
+		6 tipos de casillas
+		
+	- J: ubicacion del jugador
+	- B: ubicacion del bot
+		4 casillas de distancia del jugador
+	- O: casilla vacia puede estar el bot y el jugador
+	- G: casilla con oro
+		el jugador decide si quiere LEVANTAR (comando) o no el oro
+	- S: salida del laberinto
+		sufiente oro
+		estar en la casilla
+		ejecutar el comando salir
+	- #: Representa pared. y ninguno puede estar en ella
+		
+// comandos para jugar
+1	ORO_REQUERIDO: muestra la cantidad de oro que necesita para salir
+2	Oro: Muestra la cantidad de oro que tiene el jugador
+3	MOVER <D> mueve al jugador una casilla indicada
+		la direccion se da por N, S, E, O y debe mostrar un mensaje si se pudo mover.
+4	LEVANTAR: indica si se pudo o no levantar el oro.
+		Debe mostrar la cantidad de oro y la cantidad total de oro del jugador.
+		Si el jugador ejecuta este comando en una casilla sin oro, mostrar un mensaje y su turno termina.
+5	MIRAR: da una vista 5x5 al rededor del jugador.
+6	SALIR: si el jugador esta el casilla "S" y tiene el oro necesario se muestra que gano y termina el juego.
+
+		pd: debe regresar al menu principal
+	//Errores
+		
+1 si el jugador ingresa un comando inexistente se le resta oro y se ubica el otro en otra parte
+	si son 3 comandos inexistentes pierde 
+
+// Jugadores
+1 primero el jugador
+2 despues el bot
+
+
+// bot
+1 funcion atrapar al jugador
+	si lo atrapa el jugador pierde.
+	solo puede ver el mapa con el comando MIRAR
+		si lo ve entonces se mueve en direccion a este en el siguiente turno
+		sino se mueve aleatoriamente
+	solo se puede mover con el comando MOVER
+	
+// Construir mapa:
+debe terner casillas:
+	O, G, S, ? Y #
+	al menos una salida
+	
+al terminar de crear se le debe dar un nombre y una cantidad de oro ganar el juego.
+
+	Si el mapa no tiene sufiente casillas para el oro:
+	se le debe de informar al usuario del error para que repare el problema.
+	
+
+
+		REPORTE GENERAL
+	Mostrar
+- cantidad de veces que fue atrapado
+- cantidad de partidad ganadas
+- promedio de oro por partida
+- promedio de movimientos por partida
+- mapa mas Jugado
+- Mapa en que se perdio mas veces
+- Mapa en que se gano mas veces
+- #  mapas creados

@@ -1,0 +1,1214 @@
+
+inicio Laberinto
+// mover
+var MOVER;
+var ARRIBA = "N"
+var ABAJO = "S"
+var DERECHA = "E"
+var IZQUIERDA = "O"
+var POSICION
+
+var opcionOro
+var LEVANTARORO = 1
+var SEGUIR = 2
+var temp
+
+// tablero1 peincipiante    
+var tablero1 [10][10]
+
+// juego predeterminado modo Intermedio:
+var tablero2[12][12] 
+
+// juego avanzado
+var tablero3[30][30]
+
+// creador de mapas
+var nombreMapa
+        // numero de oro, pared, casillasvacias, jugador, bot, salidas y caracter de respresentacion de cada uno
+var oroo = 0
+var repOro       //representar oro
+var paredd = 0
+var repPared;      //representar pared
+var vacias = 0
+var repVacias     //representar casillas vacias
+var salidas = 0
+var repSalidas   //representar Salidas
+
+var repJugador    // representar al jugador
+var repBot        //representar al bot
+
+
+//modo de juego 
+    var modoDeJuego
+    var nombreJugador
+    
+    //Casillas para el tablero
+    var ubicacionJugador = "J"
+    var ubicacionBot = "B"
+    var casillaVacia = "O"
+    var oro = "G"
+    var salirLaberinto = "S"
+    var pared = "#"
+    
+    var opcionJugar
+    
+	hacer	
+		Escribir "Bienvenido al Laberinto"
+		Escribir "Escoja una opcion"
+		Escribir "1. Jugar"
+		Escribir "2. Crear mapa"
+		Escribir "Reportes"
+		Escribir salir 
+		Leer opcionJugar
+		
+		si (opcionJugar == 1) entonces
+		Escribir "Elige el modo de juedo"
+		Escribir "1. Principiante"
+		Escribir "2. Intermedio"
+		Escribir "3. Avanzado"
+		leer modoDeJuego
+		
+			si (mododeJuego ==1)entonces
+			Escribir principiante()
+			finsi
+			si (modoDeJuego == 2) entonces
+			Escribir intermedio()
+			finsi
+			si (modoDeJuego == 3) entonces
+			Escribir avanzado()
+			finsi
+		finsi
+		finhacer mientras (modoDeJuego !=4)
+		
+		
+Inicio principiante
+var nombreJugador
+var tablero1 [10][10]
+	para (int fila=0; fila<10; fila++)hacer
+		para (var col=0; col<10; col++) hacer
+		// pared
+		si (fila==0 || fila==9) entonces
+		tablero1[fila]col] = pared
+		finsi 
+		si ((fila == 2) && (col==1||col==2||col==3 ||col==5 || col== 6)) entonces
+             tablero1[fila][col] = pared    
+             finsi
+             si ((fila == 5 || fila == 7)&& (col== 2 || col == 3 || col == 4 || col == 5)) entonces
+                tablero1[fila][col]= pared
+                finsi
+                si ((fila == 6) && (col== 0 || col==9 ))entonces
+                tablero1[fila][col]= pared;
+                finsi 
+                // pared columna
+                    si (col == 9)entonces
+                    tablero1[fila][col] = pared
+                    finsi 
+                    si ((fila == 1 ||fila == 2 ||fila == 3 ||fila == 4 ||fila == 5 ||fila==7 ||fila ==8) && (col==7 ))entonces
+                        tablero1[fila][col] = pared
+                    finsi
+                    si ((fila == 3 || fila == 4) && ( col ==5))entonces
+                            tablero1[fila][col] = pared
+                            finsi 
+                            si ((fila== 8)&& (col== 2)) entonces
+                            tablero1[fila][col] = pared
+                            finsi
+                            si ((fila == 2 ||fila == 3 ||fila == 4 ||fila == 5 ||fila==6 || fila ==7 ) && (col == 0))entonces
+                            tablero1[fila][col] = pared
+                            finsi
+                             // casillas vacia
+                                 si ((fila==1)&& (col==1 || col == 2 || col == 3 || col == 4|| col == 5)) entonces
+                                        tablero1[fila][col]= casillaVacia 
+                                  finsi
+                                  si ((fila==2)&& (col ==4|| col==8))entonces
+                                  tablero1[fila][col]= casillaVacia 
+                                  finsi
+                                  si ((fila==3)&&(col == 2 || col == 3 || col == 4||col == 8))entonces
+                                  tablero1[fila][col]= casillaVacia
+                                  finsi 
+                                  si ((fila == 4)&&(col==1 || col == 2 || col == 3 ||col == 6||col == 8))entonces
+                                  tablero1[fila][col]= casillaVacia
+                                  finsi
+                                  si ((fila==5|| fila==7 ) && (col==1 ||col == 6||col == 8))entonces
+                                  tablero1[fila][col]= casillaVacia
+                                finsi
+                               si ((fila==6)&& (col== 1 || col == 2 || col == 3 ||col == 4||col == 5|| col==6|| col==7|| col==8))entonces 
+                               tablero1[fila][col]= casillaVacia
+                               finsi
+                               si ((fila ==8) && (col==4||col==5))entonces
+                               tablero1[fila][col]= casillaVacia
+                               finsi
+                                // distribucion de oro
+                                si ((fila ==1 || fila==8) && (col == 6 || col == 8)) entonces
+                                 tablero1[fila][col]= oro
+                                 finsi
+                                 si ((fila==3 || fila==8) && (col == 1))entonces
+                                 tablero1[fila][col]= oro
+                                 finsi
+                                 si ((fila == 8) && (col == 3))entonces
+                                 tablero1[fila][col]= oro
+                                 finsi
+                                 // Salidas
+                                  si((fila == 1 || fila == 8) && (col == 0))entonces
+                                  tablero1[fila][col]= salirLaberinto
+                                  finsi
+
+                                  //jugador
+                                  si  ((fila == 3) && (col == 6))entonces
+                                  tablero1[fila][col] = ubicacionJugador
+                                  finsi
+
+                                  // posicion de bot
+                                  si ((fila == 4) && (col == 4))entonces
+                                  tablero1[fila][col]= ubicacionBot
+                                  finsi
+		finpara
+	finpara
+// para jugar
+Escribir "Bienvenido al Laberinto"
+Escribir " Antes de iniciar introduce tu nombre"
+leer nombreJudador
+Escribir "BIenvenido al Laberinto + nombreJugador
+Escribir " Para ganar debes recoger al menos 5 de oro"
+para (var fila=0;fila<10; fila++)hacer
+	para (var col=0; col<10; col++) hacer
+	escribir tablero1[fila][col]
+	finpara
+	Escribir " "
+finpara
+
+retornar tablero1
+
+FinPrincipiante
+
+inicioMoverse
+
+int oroEncontrado= 0;
+int oroSalir = 8;
+boolean modificado = false;
+
+Escribir "Para moverte debes usar"
+Escribir "Arriba = N, "+"Abajo = S, "+ "Derecha = E, "+"Izquierda = O."
+leer MOVER
+ 
+Para (int i=0; i<tablero1.length; i++)hacer
+    para (int j=0; j<tablero1.length; j++)hacer
+    
+    si (MOVER == ABAJO) entonces
+    modificado = true; 
+         si (tablero1[i++][j].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero1[i++][j])
+          finsi 
+            sino
+            si (tablero1[i++][j].equals(pared))enotnces
+                Escribir "Movimiento no valido")
+            finsi
+             si(tablero1[i++][j].equals(oro)) entonces
+                  Escribir "Genial encontraste oro"
+                  Escribir "¿Qué deseas hacer?"
+                  Escribir "1. Levantar oro"
+                  Escribir "2. Seguir"
+                    Leer opcionOro 
+              finsi
+               si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero1[i][j]
+                finsi 
+                  sino
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia   
+                        Escribir tablero1[i][j]
+                    finsi
+        finsi
+         sino
+            si (MOVER.equals(ARRIBA))entonces
+                modificado = true
+                si (tablero1[i--][j].equals(casillaVacia))entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero1[i--][j]
+           finsi
+            sino 
+              si (tablero1[i--][j].equals(pared)) entonces
+              escribir "Movimiento no valido"
+              finsi
+            
+                si (tablero1[i--][j].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                finsi
+                 si (opcionOro == LEVANTARORO ) entonces  
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero1[i][j])
+                finsi
+                	sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribri tablero1[i][j]
+                    finsi
+            finsi
+            sino
+            si  (MOVER.equals(DERECHA))entonces
+                modificado = true
+                si (tablero1[i][j++].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero1[i][j++]
+            finsi
+            sino 
+                si (tablero1[i][j++].equals(pared))entonces
+                Escribir "Movimiento no valido"
+            finsi
+                si (tablero1[i][j++].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                finsi
+                 si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escibir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero1[i][j]
+                finsi
+                sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero1[i][j]
+                    finsi
+            finsi
+             sino
+            	si (MOVER.equals(IZQUIERDA))entonces
+                modificado = true
+                
+                si (tablero1[i][j--].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero1[i][j--])
+            finsi
+            sino 
+                si (tablero1[i][j--].equals(pared))enotonces
+                	Escribir"Movimiento no valido"
+                finsi
+                	si (tablero1[i][j--].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                	finsi
+                	si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero1[i][j]
+                finsi
+                	sino
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero1[i][j]
+                    finsi
+            finsi
+    finpara
+finpara
+return tablero1;
+finmoverse
+
+inicio intermedio
+        para (int fila = 0; fila < 12; fila++) hacer
+            para (int col = 0; col < 12; col++) hacer
+                // pared fila
+                si ((fila == 0) && (col == 2 || col == 3 || col == 4 || col == 5 || col == 6 || col == 7 || col == 8 || col == 9 || col == 10 || col == 11)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 2) && (col == 2 || col == 3 || col == 4 || col == 8 || col == 9)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 4) && (col == 4 || col == 5 || col == 6 || col == 7)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 5) && (col == 4 || col == 7 || col == 8 || col == 9)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 6) && (col == 1 || col == 2 || col == 4 || col == 5)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 7) && (col == 2 || col == 7 || col == 8)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 9) && (col == 2 || col == 3 || col == 4 || col == 5 || col == 8 || col == 9)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 11) && (col == 1 || col == 2 || col == 3 || col == 4 || col == 5 || col == 6 || col == 7 || col == 8 || col == 9)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                // pared columnas
+                si ((fila == 0 || fila == 1 || fila == 2 || fila == 3 || fila == 4 || fila == 5 || fila == 6 || fila == 7 || fila == 8 || fila == 9 || fila == 10 || fila == 11) && (col == 0)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 2 || fila == 3 || fila == 4 || fila == 5) && (col == 2)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 7 || fila == 8) && (col == 5)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 1 || fila == 2) && (col == 6)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 1 || fila == 10) && (col == 8)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 3 || fila == 4 || fila == 8) && (col == 9)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                si ((fila == 1 || fila == 2 || fila == 3 || fila == 4 || fila == 5 || fila == 6 || fila == 7 || fila == 8 || fila == 9 || fila == 10 || fila == 11) && (col == 11)) entonces
+                    tablero2[fila][col] = pared
+                finsi
+                
+                // casillas vacias
+                si ((fila == 1 || fila == 2 || fila == 3 || fila == 4|| fila == 8 || fila == 9 || fila == 10)&&(col==1)) entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila==1|| fila==8 |fila==10)&& (col==2))entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila==1||fila == 3 || fila == 4 || fila == 5 || fila == 6 || fila == 7 || fila == 8||fila==10)&&(col==3))entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila==1||fila==3||fila==7||fila==10)&&(col==4)) entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila==1||fila==2||fila==3||fila==10) && (col==5)) entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila==3||fila==6||fila==7||fila==8||fila==9||fila==10)&&(col==6)) entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila==2||fila==3||fila==6||fila==8||fila==9)&&(col==7)) entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila==3|| fila==6)&&(col==8)) entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila==6)&&(col==9)) entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                si ((fila == 1 || fila == 2 || fila == 3 || fila == 4||fila == 5 || fila == 6 || fila == 7 || fila == 8 || fila == 9 || fila == 10)&& (col==10)) entonces
+                tablero2[fila][col] = casillaVacia
+                finsi
+                
+                // Distriucion de oro
+                si ((fila == 1) && (col == 7 || col == 9)) entonces
+                    tablero2[fila][col] = oro
+                finsi
+                si ((fila == 5) && (col == 1 || col == 6)) entonces
+                    tablero2[fila][col] = oro
+                finsi
+                si ((fila == 7) && (col == 1 || col == 9)) entonces
+                    tablero2[fila][col] = oro
+                finsi
+                si ((fila == 8) && (col == 4 || col == 8)) entonces
+                    tablero2[fila][col] = oro
+                finsi
+                si ((fila == 10) && (col == 7 || col == 9)) entonces
+                    tablero2[fila][col] = oro
+                finsi
+                
+                //salidas
+                si ((fila==0)&& (col==1)) entonces
+                    tablero2[fila][col] = salirLaberinto
+                finsi
+                si ((fila==11)&& (col==10)) entonces
+                    tablero2[fila][col] = salirLaberinto
+                finsi
+                
+                //Ubicacion de jugador
+                si ((fila==5)&& (col==5)) entonces
+                tablero2[fila][col] = ubicacionJugador
+                finsi
+                
+                
+                //ubicacion Bot
+                si ((fila==4)&& (col==8)) entonces
+                tablero2[fila][col] = ubicacionBot
+                finsi
+                
+            finpara
+        finpara
+        	Escrbir "\t Bienvenido al Laberinto"
+          Escribir "Antes de iniciar introduce tu nombre:"
+          Leer nombreJugador
+          Escribir "Bienvenido al laberinto"+" "+nombreJugador
+          Escribir "Para ganar debes recoger al menos 8 de Oro"
+        		para (int fila = 0; fila < 12; fila++) hacer
+                   para (int col = 0; col < 12; col ++) hacer
+			Escribir tablero2[fila][col]+ " "
+				finpara
+			Escribir " "
+	          finpara
+return tablero2
+FinIntermedio
+
+Inicio movInter
+    
+int oroEncontrado= 0
+int oroSalir = 8
+boolean modificado = false
+
+Escribir"Para moverte debes usar"
+Escribir "Arriba = N, "+"Abajo = S, "+ "Derecha = E, "+"Izquierda = O."
+Leer MOVER
+ 
+para (int i=0; i<tablero2.length; i++) hacer
+    para (int j=0; j<tablero2.length; j++)hacer
+    
+    si (MOVER.equals(ABAJO)) entonces
+    modificado = true 
+             si (tablero2[i++][j].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero2[i++][j]
+            finsi
+            	sino 
+            
+            si (tablero2[i++][j].equals(pared)) entonces
+                Escribir "Movimiento no valido"
+             finsi
+            
+                si (tablero2[i++][j].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                finsi
+                 si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero2[i][j]
+                finsi
+                	sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero2[i][j]
+                    finsi
+        finsi
+         sino
+            si (MOVER.equals(ARRIBA)) entonces
+                modificado = true
+                
+            si(tablero2[i--][j].equals(casillaVacia)) enotnces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero2[i--][j]
+            fisi
+            	sino 
+                si (tablero2[i--][j].equals(pared)) entonces
+                Escribir "Movimiento no valido"
+            	finsi
+            
+                si (tablero2[i--][j].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                 finsi
+                  si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero2[i][j]
+                 finsi
+                 	sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero2[i][j]
+                    finsi
+            finsi 
+            sino
+            	si (MOVER.equals(DERECHA)) entonces
+                modificado = true
+                
+                    si (tablero1[i][j++].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                	finsi
+                	si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero2[i][j]
+                	finsi
+                		sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero2[i][j]
+                    sino
+		           si(tablero2[i][j++].equals(casillaVacia)) entonces
+		           ubicacionJugador = POSICION
+		           casillaVacia = temp
+		           ubicacionJugador = temp
+		           casillaVacia = POSICION
+		           Escribir "Movimiento realizado con exito"
+		           modificado = true
+		           Escribir tablero2[i][j++]
+		       	finsi
+		       	 sino 
+		           si (tablero1[i][j++].equals(pared)) entonces
+		           Escribir "Movimiento no valido"
+		       	finsi
+            finsi 
+            sino
+            si (MOVER.equals(IZQUIERDA)) entonces
+                modificado = true
+                
+                si (tablero2[i][j--].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero2[i][j--]
+            	finsi
+            	sino 
+                si (tablero2[i][j--].equals(pared))entonces
+                Escribir "Movimiento no valido"
+            	finsi
+                si(tablero2[i][j--].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                finsi
+                 si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero2[i][j]
+                finsi 
+                	sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero2[i][j]
+                    finsi
+            finsi
+    finpara
+finpara
+return tablero2;
+finmovInter
+
+Inicio avanzado
+                
+        para (int fila=0; fila<tablero3.length; fila++) hacer
+            para (int col=0; col<tablero3.length; col++)hacer
+            
+            // Pared del laberinto 
+            si ((fila==0)&& (col==0 ||col== 1||col==2||col==3||col==4||col==5||col==6||col==7||col==9||col==10||col==11||col==12||col==13||col==14||col==15||col==16||col==17||col==18||col==19||col==20||col==21||col==22||col==23||col==24||col==25||col==26||col==27||col==28||col==29)) entonces
+                tablero3[fila][col]= pared
+            finsi
+             si ((fila==1)&& (col==7||col==17||col==26)) entonces
+                tablero3[fila][col]= pared
+             finsi
+              si ((fila==2)&&(col==0||col==1||col==2||col==3||col==4||col==5||col==8||col==9||col==10||col==12||col==13||col==14||col==16||col==19||col==20||col==21||col==22||col==23||col==24||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==3)&&(col==0||col==5||col==7||col==10||col==12||col==14||col==16||col==18||col==20||col==24||col==25||col==29)) entonces
+                tablero3[fila][col]= pared
+            finsi
+             si ((fila==4)&& (col==0||col==2||col==3||col==5||col==10||col==12||col==14||col==16||col==17||col==20||col==22||col==25||col==27||col==29)) entonces
+                tablero3[fila][col] = pared
+            finsi
+             si ((fila==5)&&(col==0||col==2||col==5||col==7||col==8||col==9||col==10||col==11||col==12||col==14||col==18||col==20||col==22||col==23||col==24||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]= pared
+            finsi
+             si((fila==6)&& (col==0||col==2||col==3||col==10||col==12||col==22||col==27||col==28||col==29)) entonces
+                tablero3[fila][col]= pared
+             finsi
+              si ((fila==7)&&(col==0||col==1||col==5||col==7||col==9||col==12||col==13||col==15||col==16||col==18||col==19||col==20||col==21||col==22||col==24||col==26||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+             finsi
+              si ((fila==8)&& (col==0||col==3||col==5||col==9||col==11||col==13||col==16||col==18||col==24||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==9)&&(col==0||col==2||col==3||col==5||col==6||col==7||col==9||col==11||col==13||col==14||col==16||col==18||col==19||col==20||col==22||col==23||col==24||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si((fila==10)&&(col==0||col==5||col==7||col==9||col==11||col==13||col==16||col==18||col==19||col==20||col==22||col==23||col==24||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==11)&& (col==0||col==1||col==2||col==4||col==9||col==11||col==13||col==14||col==16||col==17||col==18||col==19||col==20||col==22||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==12)&&(col==0||col==3||col==6||col==7||col==8||col==11||col==13||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==13)&&(col==0||col==1||col==3||col==4||col==6||col==9||col==11||col==15||col==17||col==18||col==20||col==23||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==14)&&(col==0||col==3||col==6||col==8||col==9||col==11||col==13||col==15||col==16||col==19||col==22||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==15)&&(col==0||col==1||col==3||col==4||col==9||col==11||col==12||col==13||col==15||col==21||col==24||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==16)&&(col==0||col==3||col==6||col==8||col==9||col==12||col==15||col==17||col==18||col==19||col==20||col==21||col==23||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==17)&&(col==0||col==1||col==5||col==6||col==7||col==9||col==13||col==17||col==26||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==18)&&(col==0||col==2||col==4||col==9||col==12||col==13||col==14||col==15||col==16||col==17||col==18||col==19||col==20||col==21||col==22||col==23||col==24||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==19)&&(col==0||col==2||col==6||col==7||col==24||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==20)&&(col==0||col==2||col==3||col==4||col==5||col==6||col==9||col==10||col==11||col==12||col==13||col==14||col==15||col==16||col==17||col==18||col==19||col==20||col==21||col==22||col==25||col==27||col==28||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==21)&&(col==0||col==2||col==6||col==8||col==23||col==25)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==22)&&(col==0||col==4||col==6||col==9||col==11||col==12||col==13||col==14||col==15||col==16||col==18||col==19||col==20||col==25||col==27||col==28||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==23)&&(col==0||col==2||col==3||col==4||col==6||col==8||col==11||col==16||col==20||col==22||col==23||col==24||col==25||col==27||col==29)) entonces
+                tablero3[fila][col]=pared 
+            finsi
+             si ((fila==24)&&(col==0||col==2||col==6||col==9||col==11||col==12||col==13||col==14||col==16||col==17||col==18||col==20||col==25||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==25)&&(col==0||col==2||col==3||col==4||col==6||col==7||col==8||col==9||col==11||col==16||col==18||col==20||col==21||col==22||col==24||col==26||col==27||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==26)&&(col==0||col==2||col==13||col==16||col==18||col==24||col==26||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==27)&&(col==0||col==2||col==3||col==4||col==5||col==6||col==7||col==8||col==9||col==10||col==12||col==14||col==15||col==16||col==18||col==20||col==21||col==22||col==23||col==24||col==28||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==28)&&(col==0||col==7||col==12||col==26||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+             si ((fila==29)&& (col==0||col==1||col==2||col==3||col==4||col==5||col==6||col==7||col==8||col==9||col==10||col==11||col==12||col==14||col==15||col==16||col==17||col==18||col==19||col==20||col==21||col==22||col==23||col==24||col==25||col==26||col==27||col==28||col==29)) entonces
+                tablero3[fila][col]=pared
+            finsi
+            
+            
+            //casillas Vacias
+            si ((fila==28)&&(col==1||col==2||col==3||col==4||col==5||col==5||col==8||col==9||col==10||col==11||col==13||col==14||col==15||col==16||col==17||col==18||col==19||col==20||col==21||col==22||col==23||col==24||col==25||col==27)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==27)&&(col==1||col==11||col==13||col==17||col==19||col==25||col==26||col==27)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==26)&&(col==1||col==3||col==4||col==5||col==6||col==7||col==8||col==9||col==10||col==11||col==12||col==14||col==15||col==17||col==19||col==20||col==21||col==22||col==23||col==25||col==27||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==25)&&(col==1||col==5||col==10||col==12||col==13||col==14||col==15||col==19||col==23||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             sif ((fila==24)&&(col==1||col==4||col==5||col==7||col==10||col==15||col==19||col==21||col==22||col==23||col==24||col==26||col==27||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             sif ((fila==23)&&(col==1||col==5||col==7||col==9||col==10||col==13||col==14||col==15||col==17||col==18||col==19||col==21||col==26)) entonces
+                tablero3[fila][col]= casillaVacia 
+            finsi
+             si ((fila==22)&&(col==1||col==2||col==3||col==5||col==7||col==8||col==10||col==17||col==21||col==22||col==23||col==24||col==26)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==21)&&(col==1||col==3||col==4||col==5||col==7||col==9||col==10||col==11||col==12||col==13||col==14||col==15||col==16||col==17||col==18||col==19||col==20||col==21||col==22||col==24||col==26||col==27||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==20)&&(col==1||col==7||col==8||col==23||col==24||col==26)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==19)&&(col==3||col==4||col==5||col==8||col==9||col==10||col==11||col==12||col==14||col==15||col==16||col==18||col==19||col==20||col==22||col==23||col==26)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==18)&&(col==3||col==5||col==6||col==7||col==8||col==10||col==11||col==25||col==26||col==27||col==28))entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==17)&&(col==2||col==3||col==4||col==8||col==10||col==11||col==12||col==14||col==15||col==19||col==20||col==21||col==22||col==23||col==24||col==25||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==16)&&(col==1||col==2||col==4||col==5||col==7||col==10||col==11||col==13||col==14||col==16||col==22||col==24||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==15)&&(col==2||col==5||col==6||col==7||col==10||col==14||col==16||col==17||col==18||col==19||col==20||col==22||col==23||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==14)&&(col==1||col==2||col==4||col==5||col==7||col==10||col==14||col==17||col==18||col==19||col==20||col==21||col==23||col==24||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==13)&&(col==2||col==5||col==7||col==8||col==10||col==12||col==13||col==14||col==19||col==21||col==22||col==24||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==12)&&(col==1||col==2||col==4||col==5||col==9||col==10||col==12||col==14||col==15||col==16||col==17||col==18||col==19||col==20||col==21||col==22||col==23||col==24||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==11)&&(col==5||col==6||col==7||col==8||col==10||col==12||col==15||col==21||col==23||col==24||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==10)&&(col==1||col==2||col==3||col==4||col==6||col==8||col==10||col==12||col==14||col==15||col==17||col==18||col==21||col==22||col==24||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==9)&&(col==1||col==4||col==8||col==10||col==12||col==15||col==17||col==21||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==9)&&(col==1||col==4||col==8||col==10||col==12||col==15||col==17||col==21||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==8)&&(col==1||col==2||col==4||col==6||col==7||col==8||col==10||col==12||col==13||col==14||col==15||col==17||col==19||col==20||col==21||col==22||col==23||col==25||col==26)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==7)&&(col==2||col==3||col==4||col==6||col==8||col==10||col==11||col==14||col==17||col==23||col==25)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==6)&&(col==1||col==4||col==5||col==6||col==7||col==8||col==9||col==11||col==13||col==14||col==15||col==16||col==17||col==18||col==19||col==20||col==21||col==23||col==24||col==25||col==26)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==5)&&(col==3||col==4||col==6||col==13||col==15||col==16||col==17||col==19||col==21||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==4)&&(col==1||col==4||col==6||col==7||col==8||col==9||col==13||col==15||col==18||col==19||col==21||col==23||col==24||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==3)&&(col==1||col==2||col==4||col==6||col==11||col==13||col==15||col==19||col==21||col==22||col==23||col==26||col==27||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==2)&&(col==6||col==7||col==11||col==15||col==17||col==18||col==25||col==26||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+             si ((fila==1)&&(col==1||col==2||col==3||col==4||col==5||col==6||col==8||col==9||col==10||col==11||col==12||col==13||col==14||col==15||col==16||col==18||col==19||col==20||col==21||col==22||col==23||col==24||col==25||col==27||col==28)) entonces
+                tablero3[fila][col]=casillaVacia
+            finsi
+            
+            //Salidas
+            si ((fila==0)&&(col==8)) entonces
+            tablero3[fila][col]=salirLaberinto
+            finsi
+             si ((fila==1)&&(col==0||col==29)) entonces
+            tablero3[fila][col]=salirLaberinto
+            finsi
+             si ((fila==21)&&(col==29))entonces
+            tablero3[fila][col]=salirLaberinto
+            finsi
+             si ((fila==29)&&(col==13)) entonces
+            tablero3[fila][col]=salirLaberinto
+            finsi
+            
+            //Oro
+            si ((fila==3)&&(col==3||col==8||col==9||col==17)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             sif ((fila==4)&&(col==11)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==5)&&(col==1)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==7|| fila==8)&&(col==28))entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==9||fila==16)&&(col==26)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==10)&&(col==19)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si((fila==11)&&(col==3)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==14)&&(col==12)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==15)&&(col==8)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==17)&&(col==18))entonces
+            tablero3[fila][col]=oro
+            finsi
+             si((fila==18)&&(col==1)) entonces
+            tablero3[fila][col]=oro
+            finsi 
+             si ((fila==19)&&(col==1||col==13||col==17||col==21||col==28)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si((fila==23)&&(col==12||col==28)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==24)&&(col==3||col==8)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==25)&&(col==17||col==25)) entonces
+            tablero3[fila][col]=oro
+            finsi
+             si ((fila==28)&&(col==6||col==28)) entonces
+            tablero3[fila][col]=oro
+            finsi
+            
+            //Ubicacion Bot
+            si ((fila==17)&&(col==16)) entonces
+            tablero3[fila][col]=ubicacionBot
+            finsi
+            
+            //Ubicacion del jugador
+            si((fila==13)&&(col==16)) entonces
+            tablero3[fila][col]=ubicacionJugador
+            finsi
+          finpara
+        finpara
+        
+        Escribir "\t Bienvenido al laberinto"
+        Escribir "Antes de iniciar ingresa tu nombre:"
+        Leer nombreJugador
+        Escribir nombreJugador+" para ganar debes recoger al menos 25 de oro"
+        Escribir "\t Que comience el juego"
+        para (int fila=0; fila<30; fila++) hacer
+            para (int col=0; col<30; col++) hacer
+                Escribir tablero3[fila][col]+" "
+            finpara
+            Escribir " " 
+        finpara
+      return tablero3;    
+finavanzado
+  
+Inicio movAva
+
+int oroEncontrado= 0
+int oroSalir = 8
+boolean modificado = false
+
+Escribir "Para moverte debes usar"
+Escribir "Arriba = N, "+"Abajo = S, "+ "Derecha = E, "+"Izquierda = O."
+Leer MOVER
+ 
+para (int i=0; i<tablero3.length; i++) hacer
+    para (int j=0; j<tablero3.length; j++) hacer
+    
+    si (MOVER.equals(ABAJO)) enotnces
+    modificado = true
+            si (tablero3[i++][j].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero3[i++][j]
+             finsi
+              sino 
+	           si (tablero3[i++][j].equals(pared)) entonces
+                Escribir "Movimiento no valido"
+            	finsi
+            	 sino
+                  si(tablero3[i++][j].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                  finsi
+                   si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero3[i][j]
+                	finsi
+                	sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero3[i][j]
+                    finsi    
+        finsi
+        	sino
+            si (MOVER.equals(ARRIBA)) entonces
+                modificado = true
+                
+            si (tablero3[i--][j].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero3[i--][j]
+            finsi
+             sino 
+                si (tablero3[i--][j].equals(pared)) entonces
+                Escribir "Movimiento no valido"
+            finsi
+            
+                si(tablero3[i--][j].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                 finsi
+                  si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero3[i][j]
+                finsi
+                	sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero3[i][j]
+                    finsi
+            finsi
+            	sino
+            	si (MOVER.equals(DERECHA)) entonces
+                modificado = true
+                
+                si (tablero3[i][j++].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero3[i][j++]
+            finsi
+             sino 
+                si (tablero3[i][j++].equals(pared)) entonces
+                Escribir "Movimiento no valido"
+            	finsi
+                si(tablero3[i][j++].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir"2. Seguir"
+                    Leer opcionOro
+                finsi
+                 si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero3[i][j]
+                finsi
+                	sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero3[i][j]
+                    finsi
+            finsi
+             sino
+            	si (MOVER.equals(IZQUIERDA)) entonces
+                modificado = true
+                
+                si (tablero3[i][j--].equals(casillaVacia)) entonces
+                ubicacionJugador = POSICION
+                casillaVacia = temp
+                ubicacionJugador = temp
+                casillaVacia = POSICION
+                Escribir "Movimiento realizado con exito"
+                modificado = true
+                Escribir tablero3[i][j--]
+            finsi
+             sino 
+                si (tablero3[i][j--].equals(pared)) entonces
+                Escribir "Movimiento no valido"
+            	finsi
+                si(tablero3[i][j--].equals(oro)) entonces
+                    Escribir "Genial encontraste oro"
+                    Escribir "¿Qué deseas hacer?"
+                    Escribir "1. Levantar oro"
+                    Escribir "2. Seguir"
+                    Leer opcionOro
+                finsi
+                 si (opcionOro == LEVANTARORO ) entonces
+                        oroEncontrado = 0 + 1
+                        ubicacionJugador = POSICION
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir "Movimiento realizado con exito"
+                        Escribir "Tienes "+ oroEncontrado+" de oro"
+                        Escribir "Aún debes consegir " + (oroSalir-1) + " para ganar"
+                        Escribir tablero3[i][j]
+               finsi
+               	sino 
+                    si (opcionOro==SEGUIR) entonces
+                        ubicacionJugador = POSICION
+                        oro = temp
+                        oro = POSICION
+                        ubicacionJugador = casillaVacia
+                        Escribir tablero3[i][j]
+                    finsi
+            finsi
+    finpara
+finpara
+return tablero3
+fin movAva
+
+//creador de mapas
+Inicio crearM
+        var fila
+        var col
+              
+        Escribir "Bienvenido al creador de mapas del laberinto"
+        Escribir "Para iniciar ingresa los siguientes datos"
+        Escribir "¿Comó se llamará tu mapa?"
+        Leer nombreMapa         
+       
+        Escribir "¿De cuántas filas lo quieres?"
+        Leer fila
+        Escribir "¿De cuántas columnas lo quieres?"
+        Leer col
+        
+        var nuevoMapa[fila][col]
+        
+        para (int i=0; i<nuevoMapa.length; i++) hacer
+            para (int j=0; j<nuevoMapa[i].length; j++) hacer
+                Escribir nuevoMapa[i][j]+ " "
+            finpara
+            Escribir " "
+        finpara
+        
+        Escribir "Continuemos con el laberinto ..."
+        
+        para (int i=0; i<nuevoMapa.length; ) hacer
+        	para (int j=0; j<nuevoMapa.length; j++) hacer
+            Escribir "¿Cuanto de oro necesitas?"
+            Leer oroo
+            Escribir "Con que caracter, deseas representar el oro?"
+            Leer repOro
+            
+            Escribir "¿Cuántas paredes necesita?"
+            Leer paredd
+            Escribir "¿Cómo desdea representar las paredes?"
+            Leer repPared
+          finpara  
+       finpara 
+    
+        para ( int i=0; i<nuevoMapa.length; i++) hacer
+            para (int j=0; j<nuevoMapa[i].length; j++)hacer
+                Escribir (nuevoMapa[i][j])
+            finpara
+        finpara
+      return nuevoMapa
+fincrearM
+
+FIN
+
+
+
